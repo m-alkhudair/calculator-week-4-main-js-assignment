@@ -4,6 +4,16 @@
     font-size: 40px;
 }
 
+#calulatorDisplay {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+}
+
+input {
+    width: 50%;
+}
+
 button {
     height: 100px;
     width: 33.33%;
