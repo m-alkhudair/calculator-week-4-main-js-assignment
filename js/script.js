@@ -75,13 +75,15 @@ const appendNumber = (e) => {
     // if (currentValue === '.' && currentValue.includes('.')) return;
     if (e.target.textContent === '.' && currentValue.includes('.')) return;
     
+    if(toClear) {
+        currentValue='';
+        toClear=false;
+    } 
     currentValue = currentValue.toString() + e.target.textContent;
     console.log(currentValue);
 }
 
 const addOperator = (e) => {
-    console.log('current val from addoperator'+currentValue);
-    console.log('previous val from addoperator'+previousValue);
     if (currentValue === '') return;
     if (previousValue !== '') {
         operate()
@@ -114,10 +116,13 @@ operatorButtons.forEach(button=>{
     })
 })
 
+let toClear = false;
 equalsButton.addEventListener('click', (e)=>{
     operate()
     updateDisplayValue()
-    // currentValue = ''
+    // previousValue = currentValue;
+    toClear= true;
+    
 })
 
 clearButton.addEventListener('click', ()=>{
