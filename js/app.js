@@ -68,6 +68,7 @@ const dot = () => {
 }
 
 let toClear;
+// let disableOperation;
 
 const operate = () => {
 
@@ -88,16 +89,17 @@ const operate = () => {
     storedAns = inputDisplay.value;
     console.log('this is stored ans '+ storedAns);
     toClear = true;
+    // disableOperation = false;
 }
 
 const updateDisplayValue = () => {
-
     if (inputDisplay.value.includes('+')) {
         valuesArray = inputDisplay.value.split('+');
         if (valuesArray.length>2) {
 
             operate();
             // toClear = false;
+            // disableOperation = true;
             console.log(valuesArray)
 
         } 
@@ -107,6 +109,7 @@ const updateDisplayValue = () => {
         if (valuesArray.length>2) {
             operate();
             // toClear = false;
+            // disableOperation = true;
             console.log(valuesArray)
 
         } 
@@ -119,7 +122,8 @@ const updateDisplayValue = () => {
                 inputDisplay.value = inputDisplay.value.substring(0, inputDisplay.value.length-1);
                 console.log('testing');
                 console.log(inputDisplay.value);
-            }    
+            }   
+            // disableOperation = true; 
             operate();
             // toClear = false;
             console.log(valuesArray)
@@ -131,6 +135,7 @@ const updateDisplayValue = () => {
 
 
 const inputToCalculator = (e) => {
+
     if (e.target.value === '*') {
         inputDisplay.value += '*';
     } else if (e.target.value === '/') {
@@ -139,10 +144,30 @@ const inputToCalculator = (e) => {
         inputDisplay.value += e.target.textContent;
     }
 
+    for (operator of operatorArray) {
+        let inputArray = inputDisplay.value.split(operator)
+        if(inputDisplay.value.includes(operator) && inputArray.length>2) {
+            // let innerArray = 
+            console.log(inputArray);
+            inputDisplay.value = inputDisplay.value.substring(0, inputDisplay.value.length-1);
+            console.log(inputDisplay.value);
+            console.log(operator)
+            operate()
+            return;
+        }
+    
+    }
+
+
+
     console.log(inputDisplay.value);
+
     updateDisplayValue();
+
+
     return inputDisplay.value;
 };
+
 
 for (const button of allButtons) {
     if (+button.textContent || button.textContent == 0) {
@@ -152,13 +177,17 @@ for (const button of allButtons) {
                 if (e.target.classList == 'number') {
                     for (const operator of operatorArray) {
                         if (inputDisplay.value.includes(operator)) {
+                            console.log('testing')
                             return;
                         }
                     }
                     inputDisplay.value = e.target.textContent;
-                    toClear = false;    
+                    toClear = false;
+                    console.log('testing')
+                      
                 } else {
-                    inputDisplay.value = storedAns;
+                    // inputDisplay.value = storedAns;
+                    console.log('testing')
                 }
             }        
         });
@@ -169,6 +198,19 @@ for (const button of allButtons) {
 for (const operatorButton of allButtons) {
     if (operatorButton.classList == 'operator') {
         operatorButton.addEventListener('click', inputToCalculator);
+        // if (disableOperation) {
+
+        // }
+        // for (const operator of operatorArray) {
+        //     // if (inputDisplay.value.includes(operator))
+        //     // operatorButton.addEventListener('click', operate);
+        //     const holdValue = inputDisplay.value
+        //     if (holdValue.substring(holdValue.length-1) === operator) {
+        //         console.log(inputDisplay.value);
+        //         console.log(holdValue );
+        //     }
+
+        // }
     }
 }
 
@@ -177,6 +219,7 @@ dotButton.addEventListener('click', dot);
 clearButton.addEventListener('click', () => {
     inputDisplay.value = null;
     storedAns = null;
+    disableOperation = false;
 });
 
 equalsButton.addEventListener('click', operate)
