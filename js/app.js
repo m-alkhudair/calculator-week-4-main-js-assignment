@@ -4,7 +4,8 @@ const allButtons = document.querySelectorAll('button');
 const dotButton =document.getElementById('dot');
 const clearButton = document.getElementById('clear');
 const equalsButton = document.getElementById('equals');
-let calculateString = '';
+let storedAns = '';
+const operatorArray = ['+', '-', '*', '/'];
 
 
 // Math operator functions
@@ -68,70 +69,6 @@ const dot = () => {
 
 let toClear;
 
-// let displayedOperatorValue;
-// const displayedOperator = () => {
-
-//     if (inputDisplay.value.includes('+')) {
-//         displayedOperatorValue = '+'.toString()
-//     } else if (inputDisplay.value.includes('-')) {
-//         displayedOperatorValue = '-'.toString()
-//     } else if (inputDisplay.value.includes('*')) {
-//         displayedOperatorValue = '*'.toString()
-//     }
-
-
-// }
-
-const updateDisplayValue = () => {
-
-    if (inputDisplay.value.includes('+')) {
-        valuesArray = inputDisplay.value.split('+');
-        if (valuesArray.length>2) {
-
-            operate();
-            toClear = false;
-            console.log(valuesArray)
-
-        } 
-    
-    } else if (inputDisplay.value.includes('-')) {
-        valuesArray = inputDisplay.value.split('-');
-        if (valuesArray.length>2) {
-            operate();
-            toClear = false;
-            console.log(valuesArray)
-
-        } 
-    
-    } else if (inputDisplay.value.includes('*')) {
-        valuesArray = inputDisplay.value.split('*');
-        if (valuesArray.length>2) {
-            console.log('befor operate' + '*')
-            if (inputDisplay.value[inputDisplay.value.length-1]==='*')  {
-                inputDisplay.value = inputDisplay.value.substring(0, inputDisplay.value.length-1);
-                console.log('testing');
-                console.log(inputDisplay.value);
-            }    
-            operate();
-            toClear = false;
-            console.log(valuesArray)
-        } 
-    
-    }
-
-    // valuesArray = inputDisplay.value.split(displayedOperatorValue);
-    // if (valuesArray.length>2) {
-    //     operate();
-    // } else if (valuesArray.length<2) {
-    //     // if (inputDisplay.value.indexOf(operator) == )
-    //     // console.log('index of operator' + inputDisplay.value.indexOf(operator));
-    //     // toClear = false;
-    //     console.log(displayedOperatorValue)
-    // }
-}
-
-
-
 const operate = () => {
 
     if (inputDisplay.value.includes('+')) {
@@ -148,17 +85,52 @@ const operate = () => {
         inputDisplay.value = multiplay(...args);
     }
 
+    storedAns = inputDisplay.value;
+    console.log('this is stored ans '+ storedAns);
     toClear = true;
 }
 
+const updateDisplayValue = () => {
+
+    if (inputDisplay.value.includes('+')) {
+        valuesArray = inputDisplay.value.split('+');
+        if (valuesArray.length>2) {
+
+            operate();
+            // toClear = false;
+            console.log(valuesArray)
+
+        } 
+    
+    } else if (inputDisplay.value.includes('-')) {
+        valuesArray = inputDisplay.value.split('-');
+        if (valuesArray.length>2) {
+            operate();
+            // toClear = false;
+            console.log(valuesArray)
+
+        } 
+    
+    } else if (inputDisplay.value.includes('*')) {
+        valuesArray = inputDisplay.value.split('*');
+        if (valuesArray.length>2) {
+            console.log('befor operate' + '*')
+            if (inputDisplay.value[inputDisplay.value.length-1]==='*')  {
+                inputDisplay.value = inputDisplay.value.substring(0, inputDisplay.value.length-1);
+                console.log('testing');
+                console.log(inputDisplay.value);
+            }    
+            operate();
+            // toClear = false;
+            console.log(valuesArray)
+        } 
+    
+    }
+}
+
+
 
 const inputToCalculator = (e) => {
-    // if (e.target.value === '*') {
-    //     return 
-    // }
-    // inputDisplay.value += e.target.textContent;
-    // inputDisplay.value += e.target.value === '*'? '*' : e.target.textContent;
-
     if (e.target.value === '*') {
         inputDisplay.value += '*';
     } else if (e.target.value === '/') {
@@ -168,9 +140,6 @@ const inputToCalculator = (e) => {
     }
 
     console.log(inputDisplay.value);
-    // if (e.target.classList == 'operator') {
-    //     return e.target.value;
-    // }
     updateDisplayValue();
     return inputDisplay.value;
 };
@@ -180,8 +149,17 @@ for (const button of allButtons) {
         button.addEventListener('click', inputToCalculator);
         button.addEventListener('click', (e)=>{
             if (toClear) {
-                inputDisplay.value = e.target.textContent;
-                toClear = false;
+                if (e.target.classList == 'number') {
+                    for (const operator of operatorArray) {
+                        if (inputDisplay.value.includes(operator)) {
+                            return;
+                        }
+                    }
+                    inputDisplay.value = e.target.textContent;
+                    toClear = false;    
+                } else {
+                    inputDisplay.value = storedAns;
+                }
             }        
         });
 
@@ -196,7 +174,10 @@ for (const operatorButton of allButtons) {
 
 dotButton.addEventListener('click', dot);
 
-clearButton.addEventListener('click', () => inputDisplay.value = null);
+clearButton.addEventListener('click', () => {
+    inputDisplay.value = null;
+    storedAns = null;
+});
 
 equalsButton.addEventListener('click', operate)
 
