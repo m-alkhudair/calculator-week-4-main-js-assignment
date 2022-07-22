@@ -66,6 +66,10 @@ const operate = () => {
     console.log(firstArg);
     console.log(secondArg);
 
+    if (calculation.toString().includes('.')) {
+        calculation = parseFloat(calculation).toFixed(14)
+    }
+
     currentValue = calculation;
     operation = undefined;
     previousValue = ''
