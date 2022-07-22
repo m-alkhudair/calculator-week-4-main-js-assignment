@@ -34,10 +34,7 @@ const multiply = (...args) => {
     return multiplication;
 };
 
-const divide = (...args) => {
-    const division = args.reduce((prevVal, curVal) => prevVal/curVal);
-    return division;
-};
+const divide = (a, b) => a/b;
 
 const operate = () => {
     console.log(previousValue);
@@ -94,7 +91,7 @@ const addOperator = (e) => {
 
 const updateDisplayValue = () => {
     // inputDisplay.value = currentValue;
-    inputDisplay.value = currentValue? currentValue : previousValue;
+    inputDisplay.value = currentValue? +currentValue : +previousValue;
     if (operation != null) {
         console.log(`${previousValue} ${operation}`);
     }
@@ -117,7 +114,7 @@ operatorButtons.forEach(button=>{
 equalsButton.addEventListener('click', (e)=>{
     operate()
     updateDisplayValue()
-    currentValue = ''
+    // currentValue = ''
 })
 
 clearButton.addEventListener('click', ()=>{
