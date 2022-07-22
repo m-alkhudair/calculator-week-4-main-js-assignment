@@ -34,7 +34,9 @@ const multiply = (...args) => {
     return multiplication;
 };
 
-const divide = (a, b) => a/b;
+const divide = (arg1, arg2) => {
+    return parseFloat(arg1)/parseFloat(arg2);
+};
 
 const operate = () => {
     console.log(previousValue);
@@ -56,6 +58,7 @@ const operate = () => {
             break
         case '/':
             calculation = divide(firstArg, secondArg);
+            break
         default:
             return
     }
