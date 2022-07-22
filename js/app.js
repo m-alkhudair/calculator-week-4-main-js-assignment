@@ -1,11 +1,17 @@
 const inputDisplay = document.querySelector('input');
+inputDisplay.value = inputDisplay.placeholder;
 const allButtons = document.querySelectorAll('button');
+const dotButton =document.getElementById('dot');
+const clearButton = document.getElementById('clear');
+const equalsButton = document.getElementById('equals');
+let calculateString = '';
+
 
 // Math operator functions
 const add = (...args) => {
     let sum = 0;
     for (const argument of args) {
-        sum += argument;
+        sum += +argument;
     }
     return sum;
 };
@@ -38,44 +44,161 @@ const square = (arg) => {
     return arg**2;
 }
 
-console.log(square(9));
-
 const squareRoot = (arg) => {
     return arg**(1/2);
 }
 
-const operate = (operator, num1, num2) => {
-    return operator(num1, num2);
+const dot = () => {
+    let float;
+
+    if (!inputDisplay.value) {
+        float = `${0}.`
+        console.log(float);
+        inputDisplay.value = float;
+        return float;
+    } else if (inputDisplay.value.includes('.')) {
+        return inputDisplay.value;
+    } else {
+        float = `${inputDisplay.value}.`;
+        inputDisplay.value = float;
+        console.log(float);
+        return float;
+    }
 }
 
-// inputDisplay.placeholder = 'testing';
-inputDisplay.value = inputDisplay.placeholder;
+let toClear;
 
-// console.log(inputDisplay.value);
+// let displayedOperatorValue;
+// const displayedOperator = () => {
+
+//     if (inputDisplay.value.includes('+')) {
+//         displayedOperatorValue = '+'.toString()
+//     } else if (inputDisplay.value.includes('-')) {
+//         displayedOperatorValue = '-'.toString()
+//     } else if (inputDisplay.value.includes('*')) {
+//         displayedOperatorValue = '*'.toString()
+//     }
+
+
+// }
+
+const updateDisplayValue = () => {
+
+    if (inputDisplay.value.includes('+')) {
+        valuesArray = inputDisplay.value.split('+');
+        if (valuesArray.length>2) {
+
+            operate();
+            toClear = false;
+            console.log(valuesArray)
+
+        } 
+    
+    } else if (inputDisplay.value.includes('-')) {
+        valuesArray = inputDisplay.value.split('-');
+        if (valuesArray.length>2) {
+            operate();
+            toClear = false;
+            console.log(valuesArray)
+
+        } 
+    
+    } else if (inputDisplay.value.includes('*')) {
+        valuesArray = inputDisplay.value.split('*');
+        if (valuesArray.length>2) {
+            console.log('befor operate' + '*')
+            if (inputDisplay.value[inputDisplay.value.length-1]==='*')  {
+                inputDisplay.value = inputDisplay.value.substring(0, inputDisplay.value.length-1);
+                console.log('testing');
+                console.log(inputDisplay.value);
+            }    
+            operate();
+            toClear = false;
+            console.log(valuesArray)
+        } 
+    
+    }
+
+    // valuesArray = inputDisplay.value.split(displayedOperatorValue);
+    // if (valuesArray.length>2) {
+    //     operate();
+    // } else if (valuesArray.length<2) {
+    //     // if (inputDisplay.value.indexOf(operator) == )
+    //     // console.log('index of operator' + inputDisplay.value.indexOf(operator));
+    //     // toClear = false;
+    //     console.log(displayedOperatorValue)
+    // }
+}
+
+
+
+const operate = () => {
+
+    if (inputDisplay.value.includes('+')) {
+        args = inputDisplay.value.split('+');
+        console.log(add(...args));
+        inputDisplay.value = add(...args);
+    } else if (inputDisplay.value.includes('-')) {
+        args = inputDisplay.value.split('-');
+        console.log(subtract(...args));
+        inputDisplay.value = subtract(...args);
+    } else if (inputDisplay.value.includes('*')) {
+        args = inputDisplay.value.split('*');
+        console.log(multiplay(...args));
+        inputDisplay.value = multiplay(...args);
+    }
+
+    toClear = true;
+}
+
 
 const inputToCalculator = (e) => {
-    console.log(e.target.textContent);
-    // let display;
-    // display += e.target.textContent; 
-
-    // for (const item of display) {
-    //     switch (item) {
-    //         case item ==
-    //     }
+    // if (e.target.value === '*') {
+    //     return 
     // }
-    // inputDisplay.placeholder += e.target.textContent;
+    // inputDisplay.value += e.target.textContent;
+    // inputDisplay.value += e.target.value === '*'? '*' : e.target.textContent;
+
+    if (e.target.value === '*') {
+        inputDisplay.value += '*';
+    } else if (e.target.value === '/') {
+        inputDisplay.value += '/';
+    } else {
+        inputDisplay.value += e.target.textContent;
+    }
+
+    console.log(inputDisplay.value);
+    // if (e.target.classList == 'operator') {
+    //     return e.target.value;
+    // }
+    updateDisplayValue();
+    return inputDisplay.value;
 };
 
 for (const button of allButtons) {
-    button.addEventListener('click', inputToCalculator);
+    if (+button.textContent || button.textContent == 0) {
+        button.addEventListener('click', inputToCalculator);
+        button.addEventListener('click', (e)=>{
+            if (toClear) {
+                inputDisplay.value = e.target.textContent;
+                toClear = false;
+            }        
+        });
+
+    }
 };
 
+for (const operatorButton of allButtons) {
+    if (operatorButton.classList == 'operator') {
+        operatorButton.addEventListener('click', inputToCalculator);
+    }
+}
+
+dotButton.addEventListener('click', dot);
+
+clearButton.addEventListener('click', () => inputDisplay.value = null);
+
+equalsButton.addEventListener('click', operate)
+
+console.log(inputDisplay.value);
 console.log(inputDisplay);
-
-console.log(operate(add, 1, 3));
-console.log(operate(subtract, 1, 3));
-console.log(operate(multiplay, 4, 3));
-console.log(operate(divide, 1, 3));
-
-
-
