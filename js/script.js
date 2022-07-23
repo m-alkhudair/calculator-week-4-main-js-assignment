@@ -6,7 +6,7 @@ const inputDisplay = document.querySelector('input');
 inputDisplay.value = inputDisplay.placeholder;
 const numberButtons = document.querySelectorAll('.number')
 const operatorButtons = document.querySelectorAll('.operator')
-const dotButton =document.getElementById('dot');
+// const dotButton =document.getElementById('dot');
 const clearButton = document.getElementById('clear');
 const equalsButton = document.getElementById('equals');
 const signToggleButton = document.getElementById('toggleSign')
@@ -89,6 +89,9 @@ const operate = () => {
 
 const appendNumber = (e) => {
     // if (currentValue === '.' && currentValue.includes('.')) return;
+    if(e.target.textContent === '.' && inputDisplay.value == ''){
+        currentValue = '0' + '.';
+    }
     if (e.target.textContent === '.' && currentValue.toString().includes('.')) return;
     
     if(toClear) {
