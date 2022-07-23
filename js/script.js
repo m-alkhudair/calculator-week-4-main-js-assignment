@@ -85,6 +85,15 @@ const appendNumber = (e) => {
     let inputNumber = e.key? e.key : e.target.textContent;
 
     if (inputNumber === '.' && currentValue.toString().includes('.')) return;
+    if (inputNumber === '0' && currentValue.toString().includes('0')) {
+        // if the zero is before the decimal
+        if (!inputDisplay.value.toString().includes('.')) {
+            return;
+        }
+    }
+    if (inputDisplay.value === '0') {
+        currentValue = '';
+    }
      
     if(toClear) {
         currentValue='';
