@@ -13,6 +13,7 @@ body {
 
 #calulatorDisplay {
     /* border: 1px solid red; */
+    margin-top: 45px;
     display: flex;
     justify-content: center;
     width: 50%;
