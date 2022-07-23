@@ -10,18 +10,15 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #99DDC8;
+    background-color: #475C7A;
 }
 
 #calulatorDisplay {
-    /* border: 1px solid red; */
     margin-top: 45px;
     display: flex;
     justify-content: center;
     width: 50%;
     text-align: center;
-    /* background-color: rebeccapurple; */
-    
 }
 
 button#del {
@@ -30,18 +27,17 @@ button#del {
 
 input {
     width: 100%;
-    border-radius: 20px;
     border: none;
     padding: 20px;
-    color: #086375;
+    border: 4px inset #AB6C82;
+    color: rgb(37, 36, 36);
 }
 
 button {
     height: 100px;
     width: 33.33%;
-    border-color: #99DDC8;
-    border-radius: 20px;
-    background-color: #086375;
+    border: 4px outset #AB6C82;
+    background-color: #685D79 ;
 }
 
 button:hover {
@@ -49,16 +45,25 @@ button:hover {
 }
 
 button.operator:focus {
-    background-color: #FFB140;
+    background-color: #CC2A49 ;
 }
 
 button.number {
-    background-color: #F17300;
+    background-color: #D8737F;
+    border: 4px outset #AB6C82;
 }
 
 button.number:hover {
     background-color: #52AD9C;
     border: none;
+}
+
+button#clear:hover, button#del:hover {
+    background-color: #CC2A49;
+}
+
+button#equals {
+    background-color: #FCBB6D ;
 }
 
 #left button, #right button {
@@ -75,15 +80,11 @@ button.number:hover {
 
 #calculator {
     display: flex;
-    /* justify-content: center; */
     width: 100%;
-    /* border: 1px solid red; */
-
     justify-content: center;
 }
 
 #left, #middle, #right {
-    /* border: 1px solid red; */
     display: flex;
     flex-direction: column;
 }
@@ -97,11 +98,3 @@ button.number:hover {
 #left, #right {
     width: 10%;
 }
-
-/* #numbers {
-    display: flex;
-    /* flex-direction: row-reverse; */
-    /* flex-wrap: wrap; */
-    /* justify-content: center; */
-    /* width: 80px; */
-/* } */ 
