@@ -102,9 +102,11 @@ const appendNumber = (e) => {
     //     }
     // }
 
+    let inputNumber = e.key? e.key : e.target.textContent;
+
     
     
-    if (e.target.textContent === '.' && currentValue.toString().includes('.')) return;
+    if (inputNumber === '.' && currentValue.toString().includes('.')) return;
     
     
     if(toClear) {
@@ -121,7 +123,7 @@ const appendNumber = (e) => {
             currentValue = currentValArrayString;
         }
     }
-    currentValue = currentValue.toString() + e.target.textContent.toString();
+    currentValue = currentValue.toString() + inputNumber.toString();
     // inputDisplay.value = parseFloat(currentValue);
     console.log(currentValue);
 }
@@ -131,7 +133,7 @@ const addOperator = (e) => {
     if (previousValue !== '') {
         operate()
     }
-    operation = e.target.value;
+    operation = e.key? e.key: e.target.value;
     console.log(operation);
     previousValue = currentValue;
     currentValue = ''
@@ -291,4 +293,30 @@ deleterButton.addEventListener('click', ()=> {
     }
     currentValue = inputDisplay.value.toString().slice(0, -1);
     updateDisplayValue()
+})
+
+const numberKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '.'];
+const operationKeys = ['+', '-', '*', '/'];
+
+document.addEventListener('keypress', (e)=>{
+    console.log(e.key);
+    if (numberKeys.includes(e.key)) {
+        // console.log(e.key);
+        appendNumber(e)
+        updateDisplayValue()
+
+    }
+
+    if (operationKeys.includes(e.key)) {
+        addOperator(e)
+        updateDisplayValue()
+    }
+
+    if (e.key === 'Enter') {
+        operate()
+        updateDisplayValue()
+        // previousValue = currentValue;
+        toClear= true;
+    
+    }
 })
