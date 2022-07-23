@@ -186,6 +186,7 @@ signToggleButton.addEventListener('click', ()=>{
 percentageButton.addEventListener('click', ()=>{
     currentValue = inputDisplay.value;
     if (currentValue) {
+        operate()
         currentValue = parseFloat(currentValue)/100;
         updateDisplayValue()
     }
@@ -194,6 +195,7 @@ percentageButton.addEventListener('click', ()=>{
 squareButton.addEventListener('click', ()=>{
     currentValue = inputDisplay.value;
     if (currentValue) {
+        operate()
         currentValue = parseFloat(currentValue)**2;
         updateDisplayValue()
     }
@@ -202,6 +204,7 @@ squareButton.addEventListener('click', ()=>{
 squareRootButton.addEventListener('click', ()=>{
     currentValue = inputDisplay.value;
     if (currentValue) {
+        operate()
         currentValue = parseFloat(currentValue)**(1/2);
         updateDisplayValue()
     }
