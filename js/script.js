@@ -64,7 +64,7 @@ const operate = () => {
             break
         case '/':
             if (secondArg === 0) {
-                inputDisplay.value = 'Error! Cannot divide by zero';
+                inputDisplay.value = 'No! you divide by zero';
                 console.log(inputDisplay.value);
                 dividedByZero=true;
                 return
@@ -89,10 +89,31 @@ const operate = () => {
 
 const appendNumber = (e) => {
     // if (currentValue === '.' && currentValue.includes('.')) return;
-    if(e.target.textContent === '.' && inputDisplay.value == ''){
+    if(e.target.textContent === '.' && currentValue == ''){
         currentValue = '0' + '.';
     }
-    if (e.target.textContent === '.' && currentValue.toString().includes('.')) return;
+
+    // if (e.target.textContent === '.' && currentValue) {
+    //     if(currentValue === '.') {
+    //         currentValue = '0' + '.';
+    //     } else {
+    //         currentValue = currentValue + '.'
+    //     }
+    // }
+
+
+    
+    if (e.target.textContent === '.' && currentValue.toString().includes('.')) {
+
+        if (inputDisplay.value.toString().includes('.')){
+            console.log('check check');
+            currentValue = '0' + '.';
+        } else {
+            return;
+        }
+        
+    } 
+    
     
     if(toClear) {
         currentValue='';
@@ -119,7 +140,7 @@ const updateDisplayValue = () => {
    if (dividedByZero){
     dividedByZero=false
     previousValue = '';
-    previousValue = '';
+    currentValue = '';
     return;
    }
 
@@ -135,10 +156,24 @@ const updateDisplayValue = () => {
    console.log('previous value: '+ previousValue);
    
     // inputDisplay.value = currentValue;
-    inputDisplay.value = currentValue? currentValue : previousValue;
+    // if (currentValue === 0 || currentValue === '0') inputDisplay.value = '0';
+
+    // inputDisplay.value = currentValue? currentValue : previousValue;
+
+   if (currentValue === '') {
+        inputDisplay.value = previousValue;
+   } else if (currentValue === '.'){
+        inputDisplay.value = '0' + '.';
+   } else {
+        inputDisplay.value = currentValue;
+   }
 
     // if (isNaN(inputDisplay.value)) {
         
+    // }
+    // if (currentValue == '.') {
+    //     // console.log(true);
+    //     currentValue = '0' + '.'
     // }
 
     if (inputDisplay.value.toString().includes('.') &&  decimalCount(inputDisplay.value) > 14) {
@@ -158,8 +193,13 @@ const decimalCount = (number) =>{
     return 0;
 }
 
+let decimalDot = false;
 numberButtons.forEach(button => {
     button.addEventListener('click', (e)=> {
+        // if (button.id === 'dot') {
+        //     console.log('dot dot');
+        //     decimalDot = true;
+        // }
         appendNumber(e)
         updateDisplayValue()
     } )
