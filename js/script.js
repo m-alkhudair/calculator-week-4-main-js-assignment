@@ -89,13 +89,14 @@ const operate = () => {
 
 const appendNumber = (e) => {
     // if (currentValue === '.' && currentValue.includes('.')) return;
-    if (e.target.textContent === '.' && currentValue.includes('.')) return;
+    if (e.target.textContent === '.' && currentValue.toString().includes('.')) return;
     
     if(toClear) {
         currentValue='';
         toClear=false;
     } 
-    currentValue = currentValue.toString() + e.target.textContent;
+    currentValue = currentValue.toString() + e.target.textContent.toString();
+    // inputDisplay.value = parseFloat(currentValue);
     console.log(currentValue);
 }
 
@@ -127,21 +128,31 @@ const updateDisplayValue = () => {
   
 //    }
 
+   console.log('current vlaue: ' + currentValue);
+   console.log('previous value: '+ previousValue);
    
     // inputDisplay.value = currentValue;
-    inputDisplay.value = currentValue? +currentValue : +previousValue;
+    inputDisplay.value = currentValue? currentValue : previousValue;
 
     // if (isNaN(inputDisplay.value)) {
         
     // }
 
-    if (inputDisplay.value.toString().includes('.')) {
+    if (inputDisplay.value.toString().includes('.') &&  decimalCount(inputDisplay.value) > 14) {
         inputDisplay.value = parseFloat(inputDisplay.value).toFixed(14)
     }
 
     if (operation != null) {
         console.log(`${previousValue} ${operation}`);
     }
+}
+
+const decimalCount = (number) =>{
+    const numberString = number.toString();
+    if (numberString.includes('.')) {
+        return numberString.split('.')[1].length;
+    }
+    return 0;
 }
 
 numberButtons.forEach(button => {
