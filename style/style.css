@@ -98,3 +98,50 @@ button#equals {
 #left, #right {
     width: 10%;
 }
+
+@media (max-width: 900px) {
+    /* initial values for reference */
+    /* #left, #right {
+        width: 10%;
+    }
+
+    #middle {
+        width: 30%;
+    }
+
+    #calulatorDisplay {
+        width: 50%;
+    } */
+
+    *{
+        font-size: 30px;
+    }
+    
+    #left, #right {
+        width: 16%;
+    }
+    #middle {
+        width: 48%;
+    }
+    #calulatorDisplay {
+        width: 80%;
+    }
+
+}
+
+@media (max-width: 670px) {
+    *{
+        font-size: 20px;
+    }
+    
+    #left, #right {
+        width: 20%;
+    }
+    #middle {
+        width: 60%;
+    }
+    #calulatorDisplay {
+        width: 100%;
+    }
+
+}
