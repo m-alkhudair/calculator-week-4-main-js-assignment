@@ -300,6 +300,7 @@ const operationKeys = ['+', '-', '*', '/'];
 
 document.addEventListener('keypress', (e)=>{
     console.log(e.key);
+    console.log(e);
     if (numberKeys.includes(e.key)) {
         // console.log(e.key);
         appendNumber(e)
@@ -317,6 +318,19 @@ document.addEventListener('keypress', (e)=>{
         updateDisplayValue()
         // previousValue = currentValue;
         toClear= true;
+    
+    }
+
+    // using the space bar to delete, because I was not able to target the backspace key
+    if (e.key === ' ') {
+        if (isNaN(+inputDisplay.value)) {
+            inputDisplay.value = '';
+            previousValue = '';
+            currentValue = '';
+            operation = undefined;    
+        }
+        currentValue = inputDisplay.value.toString().slice(0, -1);
+        updateDisplayValue()
     
     }
 })
