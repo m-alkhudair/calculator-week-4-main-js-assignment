@@ -2,6 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     font-size: 40px;
+    color: #FFE6E8;
 }
 
 body {
@@ -9,6 +10,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: #99DDC8;
 }
 
 #calulatorDisplay {
@@ -28,11 +30,35 @@ button#del {
 
 input {
     width: 100%;
+    border-radius: 20px;
+    border: none;
+    padding: 20px;
+    color: #086375;
 }
 
 button {
     height: 100px;
     width: 33.33%;
+    border-color: #99DDC8;
+    border-radius: 20px;
+    background-color: #086375;
+}
+
+button:hover {
+    border: none;
+}
+
+button.operator:focus {
+    background-color: #FFB140;
+}
+
+button.number {
+    background-color: #F17300;
+}
+
+button.number:hover {
+    background-color: #52AD9C;
+    border: none;
 }
 
 #left button, #right button {
