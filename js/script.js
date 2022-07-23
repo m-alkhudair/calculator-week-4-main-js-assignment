@@ -62,7 +62,7 @@ const operate = () => {
             break
         case '/':
             if (secondArg === 0) {
-                inputDisplay.value = 'Dividing by zero? Why?';
+                inputDisplay.value = 'Infinity :(';
                 console.log(inputDisplay.value);
                 dividedByZero=true;
                 return
