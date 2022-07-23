@@ -13,6 +13,10 @@ const signToggleButton = document.getElementById('toggleSign')
 const percentageButton = document.getElementById('percentage');
 const squareButton = document.getElementById('square');
 const squareRootButton = document.getElementById('squareRoot');
+// (
+const leftBracketButton = document.getElementById('leftBracket');
+// )
+const rightBracketButton = document.getElementById('rightBracket');
 
 // Math operator functions
 const add = (...args) => {
@@ -38,6 +42,8 @@ const divide = (arg1, arg2) => {
     return parseFloat(arg1)/parseFloat(arg2);
 };
 
+let dividedByZero = false;
+
 const operate = () => {
     console.log(previousValue);
     console.log(currentValue);
@@ -57,6 +63,12 @@ const operate = () => {
             calculation = multiply(firstArg, secondArg);
             break
         case '/':
+            if (secondArg === 0) {
+                inputDisplay.value = 'Error! Cannot divide by zero';
+                console.log(inputDisplay.value);
+                dividedByZero=true;
+                return
+            }
             calculation = divide(firstArg, secondArg);
             break
         default:
@@ -100,8 +112,28 @@ const addOperator = (e) => {
 
 const updateDisplayValue = () => {
     
+   if (dividedByZero){
+    dividedByZero=false
+    previousValue = '';
+    previousValue = '';
+    return;
+   }
+
+//    if (isNaN(inputDisplay.value) || currentValue) {
+//     inputDisplay.value = '';
+//     previousValue = '';
+//     currentValue = '';
+//     operation = undefined;
+  
+//    }
+
+   
     // inputDisplay.value = currentValue;
     inputDisplay.value = currentValue? +currentValue : +previousValue;
+
+    // if (isNaN(inputDisplay.value)) {
+        
+    // }
 
     if (inputDisplay.value.toString().includes('.')) {
         inputDisplay.value = parseFloat(inputDisplay.value).toFixed(14)
@@ -173,4 +205,20 @@ squareRootButton.addEventListener('click', ()=>{
         currentValue = parseFloat(currentValue)**(1/2);
         updateDisplayValue()
     }
+})
+
+leftBracketButton.addEventListener('click', ()=>{
+    currentValue = inputDisplay.value;
+    if (currentValue) {
+        updateDisplayValue()
+        // console.log(currentValue);
+    }
+})
+
+rightBracketButton.addEventListener('click', ()=>{
+    operate()
+    updateDisplayValue()
+    // previousValue = currentValue;
+    toClear= true;
+
 })
