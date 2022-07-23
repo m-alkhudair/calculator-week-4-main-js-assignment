@@ -89,9 +89,12 @@ const operate = () => {
 
 const appendNumber = (e) => {
     // if (currentValue === '.' && currentValue.includes('.')) return;
-    if(e.target.textContent === '.' && currentValue == ''){
-        currentValue = '0' + '.';
-    }
+
+
+    // DID THIS HELP?
+    // if(e.target.textContent === '.' && currentValue == ''){
+    //     currentValue = '0' + '.';
+    // }
 
     // if (e.target.textContent === '.' && currentValue) {
     //     if(currentValue === '.') {
@@ -101,24 +104,25 @@ const appendNumber = (e) => {
     //     }
     // }
 
-
     
-    if (e.target.textContent === '.' && currentValue.toString().includes('.')) {
-
-        if (inputDisplay.value.toString().includes('.')){
-            console.log('check check');
-            currentValue = '0' + '.';
-        } else {
-            return;
-        }
-        
-    } 
+    
+    if (e.target.textContent === '.' && currentValue.toString().includes('.')) return;
     
     
     if(toClear) {
         currentValue='';
         toClear=false;
     } 
+
+    if (inputDisplay.value.toString().includes('.')) {
+        let currentValArray = currentValue.split('');
+        if (currentValArray.indexOf('.') === 0) {
+            currentValArray.unshift('0');
+            const currentValArrayString = currentValArray.join('');
+            console.log(currentValArrayString);   
+            currentValue = currentValArrayString;
+        }
+    }
     currentValue = currentValue.toString() + e.target.textContent.toString();
     // inputDisplay.value = parseFloat(currentValue);
     console.log(currentValue);
