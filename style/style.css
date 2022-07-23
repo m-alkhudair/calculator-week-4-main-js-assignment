@@ -4,14 +4,29 @@
     font-size: 40px;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 #calulatorDisplay {
     /* border: 1px solid red; */
     display: flex;
     justify-content: center;
+    width: 50%;
+    text-align: center;
+    /* background-color: rebeccapurple; */
+    
+}
+
+button#del {
+    margin: 0;
 }
 
 input {
-    width: 50%;
+    width: 100%;
 }
 
 button {
@@ -34,7 +49,7 @@ button {
 #calculator {
     display: flex;
     /* justify-content: center; */
-    /* width: 80%; */
+    width: 100%;
     /* border: 1px solid red; */
 
     justify-content: center;

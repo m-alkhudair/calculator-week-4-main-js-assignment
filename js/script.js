@@ -4,19 +4,17 @@ let previousValue = ''
 
 const inputDisplay = document.querySelector('input');
 inputDisplay.value = inputDisplay.placeholder;
-const numberButtons = document.querySelectorAll('.number')
-const operatorButtons = document.querySelectorAll('.operator')
-// const dotButton =document.getElementById('dot');
+const numberButtons = document.querySelectorAll('.number');
+const operatorButtons = document.querySelectorAll('.operator');
 const clearButton = document.getElementById('clear');
 const equalsButton = document.getElementById('equals');
-const signToggleButton = document.getElementById('toggleSign')
+const signToggleButton = document.getElementById('toggleSign');
 const percentageButton = document.getElementById('percentage');
 const squareButton = document.getElementById('square');
 const squareRootButton = document.getElementById('squareRoot');
-// (
 const leftBracketButton = document.getElementById('leftBracket');
-// )
 const rightBracketButton = document.getElementById('rightBracket');
+const deleterButton = document.getElementById('del');
 
 // Math operator functions
 const add = (...args) => {
@@ -64,7 +62,7 @@ const operate = () => {
             break
         case '/':
             if (secondArg === 0) {
-                inputDisplay.value = 'No! you divide by zero';
+                inputDisplay.value = 'Dividing by zero? Why?';
                 console.log(inputDisplay.value);
                 dividedByZero=true;
                 return
@@ -282,4 +280,15 @@ rightBracketButton.addEventListener('click', ()=>{
     // previousValue = currentValue;
     toClear= true;
 
+})
+
+deleterButton.addEventListener('click', ()=> {
+    if (isNaN(+inputDisplay.value)) {
+        inputDisplay.value = '';
+        previousValue = '';
+        currentValue = '';
+        operation = undefined;    
+    }
+    currentValue = inputDisplay.value.toString().slice(0, -1);
+    updateDisplayValue()
 })
