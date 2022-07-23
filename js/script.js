@@ -66,9 +66,9 @@ const operate = () => {
     console.log(firstArg);
     console.log(secondArg);
 
-    if (calculation.toString().includes('.')) {
-        calculation = parseFloat(calculation).toFixed(14)
-    }
+    // if (calculation.toString().includes('.')) {
+    //     calculation = parseFloat(calculation).toFixed(14)
+    // }
 
     currentValue = calculation;
     operation = undefined;
@@ -99,8 +99,14 @@ const addOperator = (e) => {
 }
 
 const updateDisplayValue = () => {
+    
     // inputDisplay.value = currentValue;
     inputDisplay.value = currentValue? +currentValue : +previousValue;
+
+    if (inputDisplay.value.toString().includes('.')) {
+        inputDisplay.value = parseFloat(inputDisplay.value).toFixed(14)
+    }
+
     if (operation != null) {
         console.log(`${previousValue} ${operation}`);
     }
